@@ -1,17 +1,17 @@
 package com.example.appwithfirebase;
 
 public class User {
-    public String uid;
     public String name;
-    public String email;
+    public String phoneNumber;
+    public String address;
 
     public User() {
         // Constructor vacío necesario para Firebase
     }
 
-    public User(String uid, String name, String email) {
-        this.uid = uid;
+    public User(String name, String phoneNumber, String address) {
         this.name = name;
-        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 }
