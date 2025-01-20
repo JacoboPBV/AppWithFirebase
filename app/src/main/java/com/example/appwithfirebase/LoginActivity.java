@@ -51,58 +51,13 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+
+                        Intent loginIntent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        context.startActivity(loginIntent);
+                        finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Error en autenticación.", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    private void readUsersFromDatabase() {
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("users");
-
-        ValueEventListener userListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String userName = userSnapshot.child("name").getValue(String.class);
-                    Log.d("Firebase", "Nombre del usuario: " + userName);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("Firebase", "Error al leer datos", databaseError.toException());
-            }
-        };
-
-        databaseRef.addListenerForSingleValueEvent(userListener);
-    }
-
-    private void modifyOrderFromDatabase() {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("orders/order2");
-
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("price", 1500);
-        updates.put("product", "Laptop Pro 2");
-
-        orderRef.updateChildren(updates).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Log.d("Firebase", "Orden actualizada correctamente.");
-            } else {
-                Log.w("Firebase", "Error al actualizar la orden.", task.getException());
-            }
-        });
-    }
-
-    private void deleteOrderFromDatabase() {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference("orders/order2");
-
-        orderRef.removeValue().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Log.d("Firebase", "Orden eliminada correctamente.");
-            } else {
-                Log.w("Firebase", "Error al eliminar la orden.", task.getException());
-            }
-        });
     }
 }

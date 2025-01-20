@@ -57,6 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
 
                         addUserToDatabase(name, phoneNumber, address);
+
+                        Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        context.startActivity(loginIntent);
                     } else {
                         Log.e("Firebase", "Error", task.getException());
                         Toast.makeText(RegisterActivity.this, "Error en el registro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
