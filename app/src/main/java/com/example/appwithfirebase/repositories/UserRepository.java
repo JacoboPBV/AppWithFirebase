@@ -1,8 +1,12 @@
 package com.example.appwithfirebase.repositories;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.appwithfirebase.views.DashboardActivity;
+import com.example.appwithfirebase.views.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -46,8 +50,27 @@ public class UserRepository {
         }
     }
 
+    public void loginUser(String email, String password, OnLoginCallback callback) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onSuccess(mAuth.getCurrentUser());
+                    } else {
+                        callback.onFailure(task.getException());
+                    }
+                });
+    }
+
+
     public interface OnRegisterCallback {
         void onSuccess();
+
+        void onFailure(Exception exception);
+    }
+
+    public interface OnLoginCallback {
+        void onSuccess(FirebaseUser user);
+
         void onFailure(Exception exception);
     }
 }

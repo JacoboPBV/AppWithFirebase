@@ -7,9 +7,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appwithfirebase.R;
+import com.example.appwithfirebase.repositories.UserRepository;
+import com.example.appwithfirebase.viewmodels.LoginViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     Context context = this;
@@ -38,17 +42,19 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+        LoginViewModel loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        loginViewModel.login(email, password, new UserRepository.OnLoginCallback() {
+            @Override
+            public void onSuccess(FirebaseUser user) {
+                Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                finish();
+            }
 
-                        Intent loginIntent = new Intent(LoginActivity.this, DashboardActivity.class);
-                        context.startActivity(loginIntent);
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Error en autenticación.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Exception exception) {
+                Toast.makeText(LoginActivity.this, "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
