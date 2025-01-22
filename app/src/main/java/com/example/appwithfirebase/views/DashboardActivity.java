@@ -1,4 +1,4 @@
-package com.example.appwithfirebase;
+package com.example.appwithfirebase.views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.appwithfirebase.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,16 +59,16 @@ public class DashboardActivity extends AppCompatActivity {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String title = dataSnapshot.child("title").getValue(String.class);
-                    titulo.setText(title);
+                String title = dataSnapshot.child("title").getValue(String.class);
+                titulo.setText(title);
 
-                    String description = dataSnapshot.child("description").getValue(String.class);
-                    descripcion.setText(description);
+                String description = dataSnapshot.child("description").getValue(String.class);
+                descripcion.setText(description);
 
-                    String image = dataSnapshot.child("image").getValue(String.class);
-                    Glide.with(DashboardActivity.this)
-                            .load(image)
-                            .into(imagen);
+                String image = dataSnapshot.child("image").getValue(String.class);
+                Glide.with(DashboardActivity.this)
+                        .load(image)
+                        .into(imagen);
             }
 
             @Override

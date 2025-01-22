@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppWithFirebase"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".views.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".views.RegisterActivity"
             android:exported="true">
         </activity>
         <activity
-        android:name=".DashboardActivity"
+        android:name=".views.DashboardActivity"
         android:exported="true">
     </activity>
     </application>
