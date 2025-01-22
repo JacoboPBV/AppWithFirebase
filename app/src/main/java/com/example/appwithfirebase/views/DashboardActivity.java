@@ -7,21 +7,25 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
-
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.appwithfirebase.R;
+import com.example.appwithfirebase.adapters.LocationAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.appwithfirebase.models.Location;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
     Context context = this;
@@ -29,6 +33,9 @@ public class DashboardActivity extends AppCompatActivity {
     TextView titulo;
     TextView descripcion;
     ImageView imagen;
+    private RecyclerView recyclerView;
+    private LocationAdapter locationAdapter;
+    private List<Location> locationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,40 +47,48 @@ public class DashboardActivity extends AppCompatActivity {
         findViewById(R.id.logoutButton).setOnClickListener(view -> {
             mAuth.signOut();
 
-            Intent logoutIntent= new Intent(DashboardActivity.this, LoginActivity.class);
+            Intent logoutIntent = new Intent(DashboardActivity.this, LoginActivity.class);
             context.startActivity(logoutIntent);
             finish();
         });
-        findViewById(R.id.moreButton).setOnClickListener(view -> readItemsFromDatabase());
 
-        titulo = findViewById(R.id.itemTitle);
-        descripcion = findViewById(R.id.itemDescription);
-        imagen = findViewById(R.id.itemImage);
+        recyclerView = findViewById(R.id.recyclerViewLocations);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        locationAdapter = new LocationAdapter(this, locationList, location -> {
+            Intent intent = new Intent(DashboardActivity.this, DetailActivity.class);
+            intent.putExtra("title", location.getTitulo());
+            intent.putExtra("description", location.getDescripcion());
+            intent.putExtra("image", location.getImagen());
+            startActivity(intent);
+        });
+        recyclerView.setAdapter(locationAdapter);
+
 
         readItemsFromDatabase();
     }
 
     private void readItemsFromDatabase() {
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("items").child("item" + (new Random().nextInt(6) + 1));
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("items");
 
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String title = dataSnapshot.child("title").getValue(String.class);
-                titulo.setText(title);
+                locationList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String title = snapshot.child("title").getValue(String.class);
+                    String description = snapshot.child("description").getValue(String.class);
+                    String image = snapshot.child("image").getValue(String.class);
 
-                String description = dataSnapshot.child("description").getValue(String.class);
-                descripcion.setText(description);
+                    Location location = new Location(title, description, image);
+                    locationList.add(location);
+                }
 
-                String image = dataSnapshot.child("image").getValue(String.class);
-                Glide.with(DashboardActivity.this)
-                        .load(image)
-                        .into(imagen);
+                locationAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("Firebase", "Error al leer datos", databaseError.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("Firebase", "Error al leer datos", error.toException());
             }
         };
 
