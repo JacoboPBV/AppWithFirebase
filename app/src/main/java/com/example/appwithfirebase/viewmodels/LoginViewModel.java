@@ -7,8 +7,8 @@ import com.example.appwithfirebase.repositories.UserRepository;
 public class LoginViewModel extends ViewModel {
     private final UserRepository userRepository;
 
-    public LoginViewModel(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginViewModel() {
+        userRepository = new UserRepository();
     }
 
     public void login(String email, String password, UserRepository.OnLoginCallback callback){
