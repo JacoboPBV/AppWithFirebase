@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.appwithfirebase"
-        minSdk 24
-        targetSdk 34
+        minSdk 26
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -23,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        dataBinding = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -30,7 +33,10 @@ android {
 }
 
 dependencies {
-    implementation libs.recyclerview // Verifica la versión más reciente.
+    implementation libs.lifecycle.extensions
+    implementation libs.lifecycle.livedata.ktx
+    implementation libs.lifecycle.viewmodel.ktx
+    implementation libs.recyclerview
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.analytics
     implementation libs.appcompat

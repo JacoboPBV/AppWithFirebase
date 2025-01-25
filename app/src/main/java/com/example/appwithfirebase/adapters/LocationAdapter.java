@@ -1,59 +1,81 @@
 package com.example.appwithfirebase.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.appwithfirebase.R;
+import com.example.appwithfirebase.databinding.ItemLocationBinding;
 import com.example.appwithfirebase.models.Location;
+
 import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationViewHolder> {
 
-    private final List<Location> locationList;
-    private final Context context;
+    private List<Location> locationList;
     private final OnLocationClickListener listener;
 
-    public LocationAdapter(Context context, List<Location> locationList, OnLocationClickListener listener) {
-        this.context = context;
+    public LocationAdapter(List<Location> locationList, OnLocationClickListener listener) {
         this.locationList = locationList;
         this.listener = listener;
+    }
+
+    public void setLocations(List<Location> locationList) {
+        this.locationList = locationList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public LocationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
-        return new LocationViewHolder(view);
+        ItemLocationBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()),
+                R.layout.item_location,
+                parent,
+                false
+        );
+
+        return new LocationViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         Location location = locationList.get(position);
 
-        Glide.with(context)
-                .load(location.getImagen())
-                .into(holder.imageView);
-
-        holder.itemView.setOnClickListener(view -> listener.onLocationClick(location));
+        holder.bind(location, listener);
     }
 
     @Override
     public int getItemCount() {
-        return locationList.size();
+        return locationList != null ? locationList.size() : 0;
     }
 
     static class LocationViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        private final ItemLocationBinding binding;
 
-        public LocationViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.imageViewLocation);
+        public LocationViewHolder(@NonNull ItemLocationBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(Location location, OnLocationClickListener listener) {
+            binding.setLocation(location);
+            Glide.with(binding.getRoot().getContext())
+                    .load(binding.getLocation().getImagen())
+                    .into(binding.imageViewLocation);
+
+
+            this.itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onLocationClick(location);
+                }
+            });
+
+            binding.executePendingBindings();
         }
     }
 

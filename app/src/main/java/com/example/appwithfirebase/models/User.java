@@ -5,9 +5,7 @@ public class User {
     private String phoneNumber;
     private String address;
 
-    public User() {
-        // Constructor vacío necesario para Firebase
-    }
+    public User() {}
 
     public User(String name, String phoneNumber, String address) {
         this.name = name;

@@ -9,13 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.appwithfirebase.R;
-import com.example.appwithfirebase.models.User;
 import com.example.appwithfirebase.repositories.UserRepository;
 import com.example.appwithfirebase.viewmodels.RegisterViewModel;
 
-import java.util.stream.Stream;
-
 public class RegisterActivity extends AppCompatActivity {
+    RegisterViewModel registerViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
         String phoneNumber = ((EditText) findViewById(R.id.phoneEditText)).getText().toString();
         String address = ((EditText) findViewById(R.id.addressEditText)).getText().toString();
 
-        if (Stream.of(name, email, password, confirmPassword, phoneNumber, address).anyMatch(String::isEmpty)) {
-            Toast.makeText(RegisterActivity.this, "Por favor, complete todos los campos.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!confirmPassword.equals(password)) {
-            Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        User user = new User(name, phoneNumber, address);
-        RegisterViewModel registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-        registerViewModel.register(email, password, user, new UserRepository.OnRegisterCallback() {
+        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        registerViewModel.register(this, name, email, password, confirmPassword, phoneNumber, address, new UserRepository.OnRegisterCallback() {
             @Override
             public void onSuccess() {
                 Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
