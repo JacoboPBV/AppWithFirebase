@@ -30,11 +30,12 @@ public class DashboardRepository {
                 List<Location> locationList = new ArrayDeque<>();
                 locationList.clear();
                 for (DataSnapshot data : snapshot.getChildren()){
+                    String id = data.getKey();
                     String title = data.child("title").getValue(String.class);
                     String description = data.child("description").getValue(String.class);
                     String image = data.child("image").getValue(String.class);
 
-                    Location location = new Location(title, description, image);
+                    Location location = new Location(id, title, description, image);
                     locationList.add(location);
                 }
 

@@ -2,6 +2,7 @@ package com.example.appwithfirebase.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.login(this, email, password, new UserRepository.OnLoginCallback() {
             @Override
             public void onSuccess(FirebaseUser user) {
+                SharedPreferences sharedPref = getSharedPreferences("AppConfig", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("uid", user.getUid());
+                editor.commit();
+
                 Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                 finish();

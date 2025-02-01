@@ -30,6 +30,8 @@
         <activity
             android:name=".views.DetailActivity"
             android:exported="true"/>
+        <activity android:name=".views.FavoritesActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

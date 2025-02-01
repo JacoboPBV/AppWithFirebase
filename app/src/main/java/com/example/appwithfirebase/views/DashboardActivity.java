@@ -30,6 +30,9 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         });
 
+        binding.seeFavoritesButton.setOnClickListener(v ->
+                startActivity(new Intent(DashboardActivity.this, FavoritesActivity.class)));
+
         dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         dashboardViewModel.getLocationLiveData().observe(this, locationList -> {
             if (locationList != null) {
@@ -48,6 +51,7 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardViewModel.getSelectedLocation().observe(this, location -> {
             if (location != null) {
                 Intent intent = new Intent(DashboardActivity.this, DetailActivity.class);
+                intent.putExtra("id", location.getId());
                 intent.putExtra("title", location.getTitulo());
                 intent.putExtra("description", location.getDescripcion());
                 intent.putExtra("image", location.getImagen());
