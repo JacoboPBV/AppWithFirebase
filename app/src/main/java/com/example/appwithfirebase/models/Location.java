@@ -1,11 +1,10 @@
 package com.example.appwithfirebase.models;
 
 public class Location {
-    String id;
-
-    String titulo;
-    String descripcion;
-    String imagen;
+    private String id;
+    private String titulo;
+    private String descripcion;
+    private String imagen;
 
     public Location() {}
 

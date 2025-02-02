@@ -24,12 +24,12 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
+
         binding.logoutButton.setOnClickListener(v -> {
             Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         });
-
         binding.seeFavoritesButton.setOnClickListener(v ->
                 startActivity(new Intent(DashboardActivity.this, FavoritesActivity.class)));
 
