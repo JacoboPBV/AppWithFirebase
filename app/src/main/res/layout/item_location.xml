@@ -16,6 +16,7 @@
             android:id="@+id/imageViewLocation"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="Imagen del item"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +25,7 @@
             android:id="@+id/textViewLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Nombre del item"
             android:text="@{location.titulo}"
             app:layout_constraintEnd_toEndOf="@id/imageViewLocation"
             app:layout_constraintStart_toStartOf="@id/imageViewLocation"

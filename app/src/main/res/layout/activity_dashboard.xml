@@ -3,8 +3,7 @@
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,61 +13,64 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/design_default_color_primary"
             android:padding="15dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/design_default_color_primary">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dashboard"
                 android:layout_gravity="center"
-                android:textSize="28sp"
-                android:textColor="@color/white"/>
+                android:text="Dashboard"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+
             <ImageButton
                 android:id="@+id/logoutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
-                android:contentDescription="Logout"
-                android:src="@drawable/icon_logout"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"
+                android:contentDescription="Botón para cerrar la sesión del usuario"
+                android:src="@drawable/icon_logout" />
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/seeFavoritesButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Ver favoritos"
-                    android:backgroundTint="@color/design_default_color_primary"/>
+                    android:backgroundTint="@color/design_default_color_primary"
+                    android:contentDescription="Botón para ir a favoritos"
+                    android:text="Ver favoritos" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewLocations"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"/>
+                    android:contentDescription="Vista de los items de la base de datos"
+                    android:overScrollMode="never" />
 
-<!--                Vista estetica-->
+                <!--Vista estetica-->
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"/>
+                    android:layout_height="100dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
