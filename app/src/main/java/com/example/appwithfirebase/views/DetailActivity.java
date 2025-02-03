@@ -1,5 +1,6 @@
 package com.example.appwithfirebase.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -23,9 +24,14 @@ public class DetailActivity extends AppCompatActivity {
     DatabaseReference userFavoritesRef;
     String uid;
     String locationID;
+    boolean isDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isDarkMode = getSharedPreferences("AppConfig", Context.MODE_PRIVATE)
+                .getBoolean("darkMode", false);
+        setTheme(isDarkMode ? R.style.ThemeDark : R.style.ThemeLight);
+
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 

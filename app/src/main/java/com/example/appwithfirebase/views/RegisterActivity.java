@@ -1,5 +1,6 @@
 package com.example.appwithfirebase.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -14,9 +15,14 @@ import com.example.appwithfirebase.viewmodels.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
     RegisterViewModel registerViewModel;
+    boolean isDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isDarkMode = getSharedPreferences("AppConfig", Context.MODE_PRIVATE)
+                .getBoolean("darkMode", false);
+        setTheme(isDarkMode ? R.style.ThemeDark : R.style.ThemeLight);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 

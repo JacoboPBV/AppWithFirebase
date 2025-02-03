@@ -13,6 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSecondary"
         tools:context=".views.DetailActivity">
 
         <TextView
@@ -22,6 +23,7 @@
             android:layout_marginBottom="5dp"
             android:contentDescription="Nombre del item"
             android:text="Título"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@id/itemDescription"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +38,7 @@
             android:paddingHorizontal="10dp"
             android:text="Descripción"
             android:textAlignment="center"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/itemImage"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,10 +60,11 @@
             android:layout_height="wrap_content"
             android:contentDescription="Botón para marcar como favorito"
             android:src="@drawable/icon_favorite_disabled"
-            app:backgroundTint="@color/white"
+            app:backgroundTint="?attr/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemImage" />
+            app:layout_constraintTop_toBottomOf="@id/itemImage"
+            app:tint="?attr/colorOnPrimary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

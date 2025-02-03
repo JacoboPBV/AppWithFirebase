@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="Nombre del item"
             android:text="@{location.titulo}"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="@id/imageViewLocation"
             app:layout_constraintStart_toStartOf="@id/imageViewLocation"
             app:layout_constraintTop_toBottomOf="@id/imageViewLocation" />

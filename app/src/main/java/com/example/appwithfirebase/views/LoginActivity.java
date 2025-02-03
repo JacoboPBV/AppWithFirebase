@@ -17,9 +17,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     Context context = this;
+    boolean isDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isDarkMode = getSharedPreferences("AppConfig", Context.MODE_PRIVATE)
+                .getBoolean("darkMode", false);
+        setTheme(isDarkMode ? R.style.ThemeDark : R.style.ThemeLight);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

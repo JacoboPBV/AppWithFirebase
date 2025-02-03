@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?colorSecondary"
         tools:context=".views.DashboardActivity">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_primary"
+            android:background="?attr/colorPrimary"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Dashboard"
-                android:textColor="@color/white"
-                android:textSize="28sp" />
+                android:textSize="28sp"
+                android:textColor="?attr/colorOnPrimary" />
 
             <ImageButton
                 android:id="@+id/logoutButton"
@@ -33,10 +36,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/white"
                 android:contentDescription="Botón para cerrar la sesión del usuario"
-                android:src="@drawable/icon_logout" />
-        </androidx.appcompat.widget.Toolbar>
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/icon_logout"
+                app:tint="?attr/colorOnPrimary" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -49,14 +53,16 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/seeFavoritesButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:backgroundTint="@color/design_default_color_primary"
+
                     android:contentDescription="Botón para ir a favoritos"
-                    android:text="Ver favoritos" />
+                    android:text="Ver favoritos"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:textColor="?attr/colorOnPrimary" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewLocations"
@@ -72,6 +78,16 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/changeThemeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/icon_light_mode"
+            android:backgroundTint="?attr/colorPrimary"
+            app:tint="?colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

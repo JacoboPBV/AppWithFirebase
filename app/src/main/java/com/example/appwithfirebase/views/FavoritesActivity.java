@@ -1,5 +1,6 @@
 package com.example.appwithfirebase.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -20,9 +21,14 @@ import java.util.ArrayList;
 public class FavoritesActivity extends AppCompatActivity {
     private LocationAdapter favoritesAdapter;
     private FavoritesViewModel favoritesViewModel;
+    boolean isDarkMode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        isDarkMode = getSharedPreferences("AppConfig", Context.MODE_PRIVATE)
+                .getBoolean("darkMode", false);
+        setTheme(isDarkMode ? R.style.ThemeDark : R.style.ThemeLight);
+
         super.onCreate(savedInstanceState);
         ActivityFavoritesBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_favorites);
 
