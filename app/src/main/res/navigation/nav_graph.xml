@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph1"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.appwithfirebase.views.DashboardFragment"
+        android:label="Dashboard" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.appwithfirebase.views.FavoritesFragment"
+        android:label="Favorites" />
+</navigation>

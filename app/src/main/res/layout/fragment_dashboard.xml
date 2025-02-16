@@ -53,17 +53,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/seeFavoritesButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-
-                    android:contentDescription="Botón para ir a favoritos"
-                    android:text="Ver favoritos"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:textColor="?attr/colorOnPrimary" />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewLocations"
                     android:layout_width="match_parent"

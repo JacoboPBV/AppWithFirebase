@@ -13,7 +13,7 @@
         android:theme="@style/ThemeLight"
         tools:targetApi="31">
         <activity
-            android:name=".views.LoginActivity"
+            android:name=".views.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,15 +22,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".views.LoginActivity"
+            android:exported="true"/>
+        <activity
             android:name=".views.RegisterActivity"
             android:exported="true"/>
         <activity
-            android:name=".views.DashboardActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".views.DetailActivity"
-            android:exported="true"/>
-        <activity android:name=".views.FavoritesActivity"
+            android:name=".views.MainActivity"
             android:exported="true"/>
     </application>
 
