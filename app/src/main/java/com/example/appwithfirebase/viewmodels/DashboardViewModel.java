@@ -23,14 +23,6 @@ public class DashboardViewModel extends ViewModel {
         return locationLiveData;
     }
 
-    public LiveData<Location> getSelectedLocation() {
-        return selectedLocation;
-    }
-
-    public void selectLocation(Location location) {
-        selectedLocation.setValue(location);
-    }
-
     private void loadLocations() {
         dashboardRepository.readItemsFromDatabase(locationLiveData);
     }

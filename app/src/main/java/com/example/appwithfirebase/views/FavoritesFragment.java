@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -42,9 +44,28 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        DrawerLayout drawerLayout = requireActivity().findViewById(R.id.drawer_layout);
+        binding.menu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+
         // Configurar RecyclerView y Adapter
-        favoritesAdapter = new LocationAdapter(new ArrayList<>(), location ->
-                favoritesViewModel.selectLocation(location));
+        favoritesAdapter = new LocationAdapter(new ArrayList<>(), location -> {
+            if (location != null) {
+                DetailFragment detailFragment = new DetailFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("id", location.getId());
+                bundle.putString("title", location.getTitulo());
+                bundle.putString("description", location.getDescripcion());
+                bundle.putString("image", location.getImagen());
+                detailFragment.setArguments(bundle);
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer, detailFragment)
+                        .addToBackStack(null) // Permite volver con el botón "atrás"
+                        .commit();
+            }
+        });
         binding.recyclerViewFavorites.setLayoutManager(new GridLayoutManager(getContext(), 3));
         binding.recyclerViewFavorites.setAdapter(favoritesAdapter);
 
@@ -57,18 +78,6 @@ public class FavoritesFragment extends Fragment {
                 favoritesAdapter.setLocations(favoritesList);
             } else {
                 Toast.makeText(getContext(), "Failed to load favorites", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Observar la ubicación seleccionada para abrir DetailActivity
-        favoritesViewModel.getSelectedLocation().observe(getViewLifecycleOwner(), location -> {
-            if (location != null) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("id", location.getId());
-                intent.putExtra("title", location.getTitulo());
-                intent.putExtra("description", location.getDescripcion());
-                intent.putExtra("image", location.getImagen());
-                startActivity(intent);
             }
         });
     }

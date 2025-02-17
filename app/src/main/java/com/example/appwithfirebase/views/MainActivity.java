@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
                 openFragment(new DashboardFragment());
             } else if (item.getItemId() == R.id.nav_favourites) {
                 openFragment(new FavoritesFragment());
-//            } else if (item.getItemId() == R.id.nav_profile) {
-//                openFragment(new ProfileFragment());
+            } else if (item.getItemId() == R.id.nav_profile) {
+                openFragment(new ProfileFragment());
             } else if (item.getItemId() == R.id.nav_logout) {
                 logoutUser();
             }

@@ -5,11 +5,9 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?colorSecondary"
-        tools:context=".views.DashboardActivity">
+        android:background="?colorSecondary">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -31,14 +29,14 @@
                 android:textColor="?attr/colorOnPrimary" />
 
             <ImageButton
-                android:id="@+id/logoutButton"
+                android:id="@+id/menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="start"
                 android:layout_marginEnd="10dp"
                 android:contentDescription="Botón para cerrar la sesión del usuario"
                 android:background="?attr/selectableItemBackground"
-                android:src="@drawable/icon_logout"
+                android:src="@drawable/icon_menu_drawer"
                 app:tint="?attr/colorOnPrimary" />
         </com.google.android.material.appbar.MaterialToolbar>
 
