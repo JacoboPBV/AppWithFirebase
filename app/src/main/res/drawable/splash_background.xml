@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="?colorPrimary" />
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/logo" />
-    </item>
+
+    <!-- Fondo con color primario -->
+    <item android:drawable="@color/white" />
+
+    <!-- Logo en el centro -->
+    <item android:drawable="@drawable/logo"
+        android:width="200dp"
+        android:height="200dp"
+        android:gravity="center" />
+
 </layer-list>
